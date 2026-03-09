@@ -1,11 +1,30 @@
 <script lang="ts">
-	import LiveInputPanel from '$lib/LiveInputPanel.svelte';
 	import ProjectCard from '$lib/ProjectCard.svelte';
 	import { buildModes, featuredProjects, labNotes } from '$lib/projects';
 
 	const playableCount = featuredProjects.filter((project) =>
 		project.links.some((link) => ['Live', 'Play', 'BOM'].includes(link.label))
 	).length;
+
+	const heroLanes = [
+		{
+			title: 'Games',
+			count: 4,
+			note: 'Party builds, prototypes, and small things that are actually playable.'
+		},
+		{
+			title: 'Hardware',
+			count: 2,
+			note: 'Boards, soldering, firmware, and projects that need to exist off-screen too.'
+		},
+		{
+			title: 'Tools',
+			count: 2,
+			note: 'Useful weird software, usually built because the problem was annoying enough.'
+		}
+	];
+
+	const heroShortlist = ['PartyVR', 'LedScreen', 'F#CK DOOMSCROLLING', 'Blipstorm'];
 </script>
 
 <div class="site-shell">
@@ -67,7 +86,37 @@
 				</p>
 			</div>
 
-			<LiveInputPanel />
+			<div class="hero-side panel">
+				<div class="hero-side-copy">
+					<p class="eyebrow">Quick Scan</p>
+					<h2>Mostly games, hardware, and useful weird tools.</h2>
+					<p>
+						This page stays intentionally short. If something looks interesting, click through to
+						the repo or live build.
+					</p>
+				</div>
+
+				<div class="hero-lane-grid" aria-label="Project lanes">
+					{#each heroLanes as lane}
+						<article class="hero-lane">
+							<div class="hero-lane-head">
+								<strong>{lane.title}</strong>
+								<span>{lane.count}</span>
+							</div>
+							<p>{lane.note}</p>
+						</article>
+					{/each}
+				</div>
+
+				<div class="hero-shortlist">
+					<p>Current shortlist</p>
+					<div class="hero-shortlist-chips">
+						{#each heroShortlist as item}
+							<span>{item}</span>
+						{/each}
+					</div>
+				</div>
+			</div>
 		</section>
 
 		<section class="section-header" id="projects">
@@ -238,6 +287,31 @@
 		padding: clamp(1.5rem, 2.4vw, 2.4rem);
 	}
 
+	.hero-side {
+		display: grid;
+		gap: 1rem;
+		padding: clamp(1.25rem, 2vw, 1.8rem);
+		align-content: start;
+	}
+
+	.hero-side-copy h2,
+	.hero-side-copy p {
+		margin: 0;
+	}
+
+	.hero-side-copy h2 {
+		margin-top: 1rem;
+		font-family: 'Silkscreen', monospace;
+		font-size: clamp(1.2rem, 1rem + 1vw, 2rem);
+		line-height: 1.45;
+	}
+
+	.hero-side-copy p:last-child {
+		margin-top: 0.85rem;
+		color: var(--text-muted);
+		line-height: 1.6;
+	}
+
 	h1 {
 		margin: 1rem 0 0;
 		font-family: 'Silkscreen', monospace;
@@ -304,6 +378,86 @@
 	.hero-note span,
 	.signal-copy span {
 		color: var(--accent);
+	}
+
+	.hero-lane-grid {
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.hero-lane {
+		padding: 1rem 1rem 1.05rem;
+		border: 1px solid rgba(125, 255, 156, 0.12);
+		border-radius: 22px;
+		background:
+			linear-gradient(180deg, rgba(10, 20, 13, 0.88), rgba(5, 10, 7, 0.88));
+	}
+
+	.hero-lane-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.hero-lane-head strong,
+	.hero-lane-head span,
+	.hero-lane p,
+	.hero-shortlist p {
+		margin: 0;
+	}
+
+	.hero-lane-head strong {
+		font-family: 'Silkscreen', monospace;
+		font-size: 0.88rem;
+	}
+
+	.hero-lane-head span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 2.4rem;
+		padding: 0.28rem 0.55rem;
+		border: 1px solid rgba(125, 255, 156, 0.16);
+		border-radius: 999px;
+		background: rgba(117, 255, 147, 0.06);
+		color: var(--text-muted);
+		font-size: 0.82rem;
+	}
+
+	.hero-lane p {
+		margin-top: 0.65rem;
+		color: var(--text-muted);
+		line-height: 1.55;
+	}
+
+	.hero-shortlist {
+		padding-top: 0.2rem;
+	}
+
+	.hero-shortlist p {
+		font-family: 'Silkscreen', monospace;
+		font-size: 0.8rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.hero-shortlist-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-top: 0.8rem;
+	}
+
+	.hero-shortlist-chips span {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid rgba(125, 255, 156, 0.16);
+		border-radius: 999px;
+		background: rgba(117, 255, 147, 0.06);
+		color: var(--text-muted);
+		font-size: 0.84rem;
 	}
 
 	.section-header,
