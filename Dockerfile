@@ -1,0 +1,19 @@
+# syntax=docker/dockerfile:1.7
+
+FROM node:20-bookworm AS builder
+WORKDIR /work
+COPY app/package*.json ./
+RUN npm ci --include=dev --no-audit --no-fund
+COPY app/ ./
+RUN npm run build
+RUN npm prune --omit=dev --no-audit --no-fund
+
+FROM node:20-bookworm AS runtime
+WORKDIR /app
+COPY --from=builder /work/node_modules ./node_modules
+COPY --from=builder /work/build ./build
+ENV HOST=0.0.0.0
+ENV PORT=3000
+EXPOSE 3000
+CMD ["node", "build"]
+

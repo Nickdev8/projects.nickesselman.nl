@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Silkscreen:wght@400;700&display=swap');
+
+:root {
+	--bg: #030504;
+	--bg-soft: #08110c;
+	--panel: rgba(9, 20, 13, 0.82);
+	--panel-strong: rgba(13, 27, 18, 0.94);
+	--line: rgba(125, 255, 156, 0.18);
+	--line-strong: rgba(125, 255, 156, 0.4);
+	--text: #e9ffe8;
+	--text-muted: #9cc7a5;
+	--accent: #75ff93;
+	--accent-strong: #3be670;
+	--accent-soft: rgba(117, 255, 147, 0.12);
+	--shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+	--radius-xl: 32px;
+	--radius-lg: 24px;
+	--radius-md: 18px;
+	--max-width: 1180px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--bg);
+	color-scheme: dark;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: 'Chakra Petch', 'Trebuchet MS', sans-serif;
+	color: var(--text);
+	background:
+		radial-gradient(circle at top, rgba(38, 105, 56, 0.22), transparent 34%),
+		radial-gradient(circle at 80% 16%, rgba(117, 255, 147, 0.08), transparent 24%),
+		linear-gradient(180deg, #051008 0%, #030504 38%, #020302 100%);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+button {
+	color: inherit;
+}
+
+::selection {
+	background: rgba(117, 255, 147, 0.28);
+	color: #f4fff4;
+}
+
+.site-shell {
+	position: relative;
+	isolation: isolate;
+	min-height: 100vh;
+	overflow: clip;
+}
+
+.site-shell::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	background:
+		repeating-linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.04) 0,
+			rgba(255, 255, 255, 0.04) 1px,
+			transparent 1px,
+			transparent 4px
+		);
+	mix-blend-mode: soft-light;
+	opacity: 0.18;
+	pointer-events: none;
+	z-index: -2;
+}
+
+.site-shell::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	background-image:
+		linear-gradient(90deg, rgba(125, 255, 156, 0.03) 1px, transparent 1px),
+		linear-gradient(180deg, rgba(125, 255, 156, 0.03) 1px, transparent 1px);
+	background-size: 40px 40px;
+	mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+	pointer-events: none;
+	z-index: -1;
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.65rem;
+	min-height: 3.1rem;
+	padding: 0.72rem 1.15rem;
+	border-radius: 999px;
+	border: 1px solid var(--line-strong);
+	background: rgba(7, 18, 11, 0.88);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	transition:
+		transform 180ms ease,
+		background-color 180ms ease,
+		border-color 180ms ease,
+		box-shadow 180ms ease;
+}
+
+.button:hover {
+	transform: translateY(-1px);
+	border-color: rgba(125, 255, 156, 0.55);
+	background: rgba(11, 27, 17, 0.96);
+	box-shadow:
+		inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+		0 10px 28px rgba(22, 78, 38, 0.22);
+}
+
+.button-primary {
+	background:
+		linear-gradient(180deg, rgba(117, 255, 147, 0.28), rgba(59, 230, 112, 0.16)),
+		rgba(8, 19, 12, 0.95);
+}
+
+.button-muted {
+	color: var(--text-muted);
+}
+
+.button-disabled {
+	cursor: default;
+	opacity: 0.72;
+}
+
+.button-disabled:hover {
+	transform: none;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+	border-color: var(--line-strong);
+	background: rgba(7, 18, 11, 0.88);
+}
+
+.panel {
+	border: 1px solid var(--line);
+	border-radius: var(--radius-xl);
+	background:
+		linear-gradient(180deg, rgba(14, 30, 19, 0.92), rgba(7, 13, 9, 0.9)),
+		var(--panel);
+	box-shadow: var(--shadow);
+	backdrop-filter: blur(16px);
+}
+
+.eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	margin: 0;
+	color: var(--text-muted);
+	font-family: 'Silkscreen', monospace;
+	font-size: 0.72rem;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+.eyebrow::before {
+	content: '';
+	display: inline-block;
+	width: 0.55rem;
+	height: 0.55rem;
+	border-radius: 999px;
+	background: var(--accent);
+	box-shadow: 0 0 20px rgba(117, 255, 147, 0.85);
+	animation: pulse-dot 1.9s ease-in-out infinite;
+}
+
+.section-copy h2,
+.section-copy p {
+	margin: 0;
+}
+
+.section-copy h2 {
+	font-family: 'Silkscreen', monospace;
+	font-size: clamp(1.2rem, 1rem + 1vw, 1.8rem);
+	letter-spacing: 0.04em;
+}
+
+.section-copy p {
+	margin-top: 0.7rem;
+	max-width: 42rem;
+	color: var(--text-muted);
+	line-height: 1.6;
+}
+
+.pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.48rem 0.8rem;
+	border: 1px solid rgba(125, 255, 156, 0.18);
+	border-radius: 999px;
+	background: rgba(117, 255, 147, 0.07);
+	color: var(--text-muted);
+	font-size: 0.85rem;
+}
+
+.visually-muted {
+	color: var(--text-muted);
+}
+
+@keyframes pulse-dot {
+	0%,
+	100% {
+		transform: scale(0.95);
+		opacity: 0.72;
+	}
+
+	50% {
+		transform: scale(1.08);
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
